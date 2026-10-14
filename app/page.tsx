@@ -1,5 +1,6 @@
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
+import Week from '@/components/Week';
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <Header />
       <div className={styles.firstScreen} aria-hidden="true" />
       <Hero />
+      <Week />
     </main>
   )
 }

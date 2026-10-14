@@ -1,0 +1,153 @@
+.week {
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: var(--space-2xl) 0;
+}
+
+.inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--space-l);
+}
+
+.title {
+  margin-bottom: var(--space-2xl);
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  line-height: 1.15;
+  text-align: center;
+}
+
+/* ---------- Мобильная версия: вертикальная шкала ---------- */
+
+.days {
+  --dot: 0.875rem;
+  --name-size: 1.75rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.day {
+  position: relative;
+  padding-left: calc(var(--dot) + var(--space-m));
+}
+
+/* вертикальная линия до следующей точки */
+.day::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--dot) / 2 - 1px);
+  top: calc(var(--name-size) * 0.575);
+  bottom: calc(-1 * var(--space-xl) - var(--name-size) * 0.575);
+  width: 2px;
+  background: var(--color-text);
+}
+
+.day:last-child::before {
+  display: none;
+}
+
+/* точка на вертикальной линии */
+.day::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(var(--name-size) * 0.575 - var(--dot) / 2);
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-surface);
+}
+
+.dayName {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--name-size);
+  line-height: 1.15;
+}
+
+.dayText {
+  max-width: 24rem;
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+/* ---------- Десктоп: горизонтальная шкала ---------- */
+
+@media (min-width: 48rem) {
+  .week {
+    padding: var(--space-3xl) 0;
+  }
+
+  .title {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .days {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* горизонтальная линия от центра первой колонки до центра третьей */
+  .days::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(100% / 6);
+    right: calc(100% / 6);
+    height: 2px;
+    background: var(--color-text);
+  }
+
+  /* сбрасываем ВСЕ мобильные стили у .day */
+  .day {
+    position: relative;
+    padding: var(--space-l) 0 0 0;
+    text-align: center;
+  }
+
+  /* убиваем мобильную вертикальную линию */
+  .day::before,
+  .day:last-child::before {
+    display: none;
+    content: none;
+  }
+
+  /* точка по центру колонки */
+  .day::after {
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 4px var(--color-surface);
+  }
+
+  .dayName {
+    font-size: 1.75rem;
+  }
+
+  .dayText {
+    max-width: 20rem;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 64rem) {
+  .days {
+    --name-size: 2rem;
+  }
+
+  .dayName {
+    font-size: 2rem;
+  }
+}
