@@ -26,7 +26,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="ru"
       className={`${tenorSans.variable} ${inter.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+      </body>
     </html>
   );
 }

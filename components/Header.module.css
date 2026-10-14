@@ -1,0 +1,312 @@
+/* ---------- Шапка (мобильная версия по умолчанию) ---------- */
+
+.header {
+  --header-h: 4.5rem;
+
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  /* шапка не занимает места в потоке: первый экран начинается с верха страницы */
+  margin-bottom: calc(-1 * var(--header-h));
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-surface);
+  color: var(--color-text);
+}
+
+/* над фото: прозрачная, светлый текст */
+.header[data-over-photo="true"] {
+  background: transparent;
+  border-bottom-color: transparent;
+  color: var(--color-bg);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  height: var(--header-h);
+  padding: 0 var(--space-l);
+}
+
+.logo {
+  font-family: var(--font-heading), serif;
+  font-size: 1.375rem;
+  line-height: 1;
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo:focus-visible,
+.burger:focus-visible,
+.close:focus-visible,
+.cta:focus-visible,
+.order:focus-visible,
+.desktopNav a:focus-visible,
+.mobileNav a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* ---------- Десктопная навигация ---------- */
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: var(--space-l);
+}
+
+.desktopNav a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.desktopNav a:hover {
+  color: var(--color-accent);
+}
+
+.order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs) var(--space-m);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 1.3;
+  border: 0;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+.order:active {
+  transform: scale(0.97);
+}
+.desktopNav .order,
+.desktopNav .order:hover {
+  color: var(--color-bg);
+}
+
+.desktopNav .order:hover {
+  opacity: 0.9;
+}
+
+/* ---------- Бургер ---------- */
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: var(--space-xs);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.burgerLine {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+}
+
+/* ---------- Мобильное меню ---------- */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgb(37 57 41 / 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.backdropOpen {
+  background: rgb(37 57 41 / 0.28);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* ← прижимает содержимое вниз */
+  width: min(20rem, 86vw);
+  height: 100%;
+  padding: var(--space-m) var(--space-l)
+    calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-left: 1px solid var(--color-surface);
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+}
+.panelOpen {
+  transform: translateX(0);
+}
+.panelTop {
+  position: absolute;
+  top: var(--space-m);
+  right: var(--space-l);
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.closeIcon {
+  position: relative;
+  display: block;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.closeIcon::before,
+.closeIcon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+}
+
+.closeIcon::before {
+  transform: rotate(45deg);
+}
+
+.closeIcon::after {
+  transform: rotate(-45deg);
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+
+.mobileNav a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 1.125rem;
+}
+
+.mobileNav a:hover {
+  color: var(--color-accent);
+}
+
+.mobileNav .order {
+  margin-top: var(--space-s);
+  color: var(--color-bg);
+  text-align: center;
+}
+
+.mobileNav .order:hover {
+  color: var(--color-bg);
+  opacity: 0.9;
+}
+
+/* ---------- Фото первого экрана и кнопка (только мобильный) ---------- */
+
+/*
+  Блок вне потока, высотой в первый экран. Сам z-index не задаёт,
+  поэтому .photo и .cta участвуют в общем наложении:
+  фото (0) < контент hero (1) < кнопка (5) < шапка (20).
+*/
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100svh;
+  pointer-events: none;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-text);
+}
+
+.photoImg {
+  object-fit: cover;
+}
+
+/* сплошное затемнение, чтобы светлый текст читался на любом фото */
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(37 57 41 / 0.45);
+}
+
+.cta {
+  position: absolute;
+  left: var(--space-l);
+  right: var(--space-l);
+  bottom: calc(var(--space-l) + env(safe-area-inset-bottom, 0px));
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: var(--space-xs) var(--space-m);
+  border: 1px solid var(--color-bg);
+  background: rgb(37 57 41 / 0.35);
+  color: var(--color-bg);
+  font-size: 1.0625rem;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.cta:hover {
+  background: rgb(37 57 41 / 0.55);
+}
+
+.cta:active {
+  transform: scale(0.97);
+  background: rgb(37 57 41 / 0.7);
+}
+/* ---------- Десктоп ---------- */
+
+@media (min-width: 48rem) {
+  .header,
+  .header[data-over-photo="true"] {
+    margin-bottom: 0;
+    background: var(--color-bg);
+    border-bottom-color: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .desktopNav {
+    display: flex;
+  }
+
+  .burger,
+  .backdrop,
+  .panel,
+  .cover {
+    display: none;
+  }
+}
