@@ -93,7 +93,16 @@ a.primary {
 a.secondary {
   border-color: var(--button-secondary-border);
 }
+.firstScreen {
+  height: 100vh;
+  height: 100svh;
+}
 
+@media (min-width: 48rem) {
+  .firstScreen {
+    display: none;
+  }
+}
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {

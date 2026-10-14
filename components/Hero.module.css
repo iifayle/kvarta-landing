@@ -1,0 +1,151 @@
+.hero {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--space-2xl) 0;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--space-l);
+}
+
+/* ---------- Фото (на мобильном — первым) ---------- */
+
+.media {
+  position: relative;
+  order: -1;
+}
+
+.photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-surface);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ---------- Текст ---------- */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  margin: 0 0 var(--space-m);
+  color: var(--color-accent);
+  font-size: 0.9375rem;
+  line-height: 1.3;
+}
+
+.eyebrow::before {
+  content: "";
+  flex: none;
+  width: var(--space-xl);
+  height: 1px;
+  background: var(--color-accent);
+}
+
+.title {
+  margin: 0 0 var(--space-l);
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.accent {
+  display: block;
+  color: var(--color-accent);
+}
+
+.lead {
+  max-width: 34rem;
+  margin: 0 0 var(--space-m);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.about {
+  max-width: 34rem;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ---------- Три факта ---------- */
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-m);
+  width: 100%;
+  max-width: 34rem;
+  margin: var(--space-xl) 0 0;
+  padding: var(--space-l) 0 0;
+  border-top: 1px solid var(--color-surface);
+  list-style: none;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.factValue {
+  font-family: var(--font-heading), serif;
+  font-size: 1.375rem;
+  line-height: 1.15;
+  color: var(--color-accent);
+}
+
+.factLabel {
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+/* ---------- Десктоп: две колонки ---------- */
+
+@media (min-width: 48rem) {
+  .hero {
+    padding: var(--space-3xl) 0;
+  }
+
+  .inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .media {
+    order: 0;
+  }
+
+  .photo {
+    aspect-ratio: 4 / 5;
+  }
+
+  /* тонкая рамка за фото, со смещением */
+  .media::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border: 1px solid var(--color-accent);
+    transform: translate(var(--space-m), var(--space-m));
+  }
+
+  .factValue {
+    font-size: 1.75rem;
+  }
+}
