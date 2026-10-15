@@ -14,7 +14,6 @@ export default function Home() {
   return (
     <main>
       <Header />
-      <div className={styles.firstScreen} aria-hidden="true" />
       <Hero />
       <Week />
       <Catalog/>

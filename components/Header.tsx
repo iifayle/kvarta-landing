@@ -161,6 +161,7 @@ export default function Header() {
       </header>
 
       {/* Только мобильный: фото на первый экран + кнопка внизу */}
+            {/* Только мобильный: фото на первый экран + текст + кнопка внизу */}
       <div className={styles.cover}>
         <div className={styles.photo}>
           <Image
@@ -172,6 +173,14 @@ export default function Header() {
             sizes="100vw"
           />
         </div>
+
+        <div className={styles.coverText}>
+          <h1 className={styles.coverTitle}>
+            Кофе, что станет прекрасным началом дня
+          </h1>
+          <p className={styles.coverLead}>Свежая обжарка к вашему столу</p>
+        </div>
+
         <a className={styles.cta} href={ORDER_HREF}>
           {ORDER_LABEL}
         </a>

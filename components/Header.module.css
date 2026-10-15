@@ -231,15 +231,40 @@
 /* ---------- Фото первого экрана и кнопка ---------- */
 
 .cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  /* обложка занимает место сама и уходит под прозрачную шапку (её высота 4.5rem) */
+  margin-top: -4.5rem;
   height: 100vh;
   height: 100svh;
-  max-height: 100svh;
   overflow: hidden;
+  margin-bottom: var(--space-2xl);
   pointer-events: none;
+}
+
+/* текст чуть выше середины экрана */
+.coverText {
+  position: absolute;
+  top: 25%;
+  left: var(--space-l);
+  right: var(--space-l);
+  z-index: 5;
+  transform: translateY(-50%);
+  color: var(--color-bg);
+  text-align: center;
+}
+
+.coverTitle {
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-size: clamp(1.875rem, 1.2rem + 3.5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.coverLead {
+  margin: var(--space-s) 0 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
 }
 
 .photo {
