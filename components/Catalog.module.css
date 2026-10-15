@@ -1,0 +1,344 @@
+.catalog {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--space-2xl) 0;
+}
+
+.inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--space-l);
+}
+
+/* ---------- Заголовок ---------- */
+
+.head {
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.intro {
+  max-width: 34rem;
+  margin: var(--space-m) auto 0;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+/* ---------- Карусель: мобильная ---------- */
+
+.carousel {
+  --gap: var(--space-s);
+  --narrow: 7.5rem;
+  --wide: min(80vw, 22rem);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  position: relative;
+  /* выходим за поля контейнера: справа виден край следующей карточки */
+  margin: 0 calc(-1 * var(--space-l));
+}
+
+.viewport {
+  overflow: hidden;
+  padding: 0 var(--space-l);
+  /* вертикальный скролл страницы оставляем браузеру, горизонтальный — нам */
+  touch-action: pan-y;
+}
+
+/*
+  Все карточки до активной узкие, поэтому сдвиг трека = индекс * (узкая + зазор).
+  Ширины и сдвиг анимируются одинаково, активная карточка плавно «приезжает» к левому краю.
+*/
+.track {
+  display: flex;
+  gap: var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translateX(
+    calc(var(--index) * -1 * (var(--narrow) + var(--gap)))
+  );
+  transition: transform 0.5s var(--ease);
+}
+
+/* ---------- Карточка ---------- */
+
+.card {
+  position: relative;
+  flex: 0 0 var(--narrow);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 28rem;
+  overflow: hidden;
+  background: var(--color-text);
+  color: var(--color-bg);
+  transition: flex 0.5s var(--ease);
+}
+
+.card.active {
+  flex-basis: var(--wide);
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-text);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* лёгкое сплошное затемнение, чтобы светлый текст читался */
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(37 57 41 / 0.3);
+}
+
+/* ---------- Текст поверх фото ---------- */
+
+.body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: var(--space-m) var(--space-s);
+  transition: padding 0.5s var(--ease);
+}
+
+.card.active .body {
+  padding: var(--space-l) var(--space-m);
+}
+
+.name {
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  transition: font-size 0.5s var(--ease);
+}
+
+.card.active .name {
+  font-size: 1.875rem;
+  line-height: 1.1;
+}
+
+.description {
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  transition:
+    max-height 0.5s var(--ease),
+    margin 0.5s var(--ease),
+    opacity 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+.card.active .description {
+  max-height: 9rem;
+  margin-top: var(--space-xs);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    max-height 0.5s var(--ease),
+    margin 0.5s var(--ease),
+    opacity 0.4s ease 0.2s,
+    visibility 0s;
+}
+
+/* ---------- Плашка с ценой и весом ---------- */
+
+.plate {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 var(--space-xs);
+  padding: var(--space-s);
+  background: var(--color-surface);
+  border-top: 2px solid var(--color-accent);
+  color: var(--color-text);
+  font-family: var(--font-heading), serif;
+  transition: padding 0.5s var(--ease);
+}
+
+.card.active .plate {
+  padding: var(--space-m);
+}
+
+.price {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  transition: font-size 0.5s var(--ease);
+}
+
+.weight {
+  font-size: 0.9375rem;
+  line-height: 1.25;
+  transition: font-size 0.5s var(--ease);
+}
+
+.card.active .price {
+  font-size: 2rem;
+}
+
+.card.active .weight {
+  font-size: 1.25rem;
+}
+
+/* клик по неактивной карточке */
+.select {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.select:focus-visible {
+  outline: 2px solid var(--color-bg);
+  outline-offset: -4px;
+}
+
+/* ---------- Стрелки ---------- */
+
+.arrow {
+  position: absolute;
+  top: 38%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-surface);
+  border-radius: 50%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.arrow:hover {
+  background: var(--color-surface);
+}
+
+.arrow:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.prev {
+  left: var(--space-xs);
+}
+
+.next {
+  right: var(--space-xs);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Десктоп: все карточки в ряд, активная шире ---------- */
+
+@media (min-width: 48rem) {
+  .catalog {
+    padding: var(--space-3xl) 0;
+  }
+
+  .head {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .carousel {
+    --gap: var(--space-m);
+    margin: 0;
+  }
+
+  .viewport {
+    overflow: visible;
+    padding: 0;
+  }
+
+  .track {
+    transform: none;
+  }
+
+  .card {
+    flex: 1 1 0%;
+    height: 32rem;
+  }
+
+  .card.active {
+    flex: 2.2 1 0%;
+  }
+
+  .prev {
+    left: var(--space-s);
+  }
+
+  .next {
+    right: var(--space-s);
+  }
+}
+
+@media (min-width: 64rem) {
+  .card {
+    height: 34rem;
+  }
+
+  .card.active .name {
+    font-size: 2.25rem;
+  }
+
+  .card.active .description {
+    font-size: 1rem;
+  }
+
+  .card.active .price {
+    font-size: 2.25rem;
+  }
+}
+
+/* на широких экранах стрелки выносим за карусель */
+@media (min-width: 80rem) {
+  .prev {
+    left: -3.5rem;
+  }
+
+  .next {
+    right: -3.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel,
+  .carousel * {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

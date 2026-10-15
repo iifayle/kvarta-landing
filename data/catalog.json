@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ethiopia-irgacheffe",
+    "name": "Эфиопия Иргачеффе",
+    "price": 32,
+    "weight": "250 г",
+    "description": "Светлая обжарка. Цветочный, бергамот.",
+    "image": "/images/catalog/ethiopia-irgacheffe.jpg"
+  },
+  {
+    "id": "colombia-huila",
+    "name": "Колумбия Уила",
+    "price": 29,
+    "weight": "250 г",
+    "description": "Карамель, красное яблоко.",
+    "image": "/images/catalog/colombia-huila.jpg"
+  },
+  {
+    "id": "brazil-cerrado",
+    "name": "Бразилия Серрадо",
+    "price": 26,
+    "weight": "250 г",
+    "description": "Орех, шоколад. Под эспрессо.",
+    "image": "/images/catalog/brazil-cerrado.jpg"
+  },
+  {
+    "id": "drip-assorti",
+    "name": "Дрип-пакеты, ассорти",
+    "price": 18,
+    "weight": "10 штук",
+    "description": "В офис или если нет кофемолки. Смесь из того, что жарим.",
+    "image": "/images/catalog/drip-assorti.jpg"
+  }
+]
