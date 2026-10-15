@@ -1,6 +1,6 @@
 .week {
   background: var(--color-surface);
-  color: var(--color-text);
+  color: #452b1a;
   padding: var(--space-2xl) 0;
 }
 
@@ -45,7 +45,7 @@
   top: calc(var(--name-size) * 0.575);
   bottom: calc(-1 * var(--space-xl) - var(--name-size) * 0.575);
   width: 2px;
-  background: var(--color-text);
+  background: #452b1a;
 }
 
 .day:last-child::before {
@@ -107,7 +107,7 @@
     left: calc(100% / 6);
     right: calc(100% / 6);
     height: 2px;
-    background: var(--color-text);
+    background: #452b1a;
   }
 
   /* сбрасываем ВСЕ мобильные стили у .day */

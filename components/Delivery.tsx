@@ -1,5 +1,5 @@
 import styles from "./Delivery.module.css";
-
+import BynIcon from "./BynIcon";
 const HOURS = [
   { days: "Пн–пт", time: "8:00-20:00" },
   { days: "Сб–вс", time: "10:00-18:00" },
@@ -22,7 +22,7 @@ export default function Delivery() {
             <h3 className={styles.subtitle}>Доставка по Минску</h3>
             <p className={styles.big}>Пятница</p>
             <p className={styles.small}>
-              Бесплатная доставка от 50 рублей, иначе 15 руб.
+              Бесплатная доставка от 50 <BynIcon className={styles.bynIcon}/>, иначе 15 <BynIcon className={styles.bynIcon}/>.
             </p>
           </div>
 

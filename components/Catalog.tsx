@@ -9,6 +9,7 @@ import {
 } from "react";
 import catalog from "@/data/catalog.json";
 import styles from "./Catalog.module.css";
+import BynIcon from "./BynIcon";
 
 type Product = {
   id: string;
@@ -148,7 +149,7 @@ export default function Catalog() {
                     </div>
 
                     <div className={styles.plate}>
-                      <span className={styles.price}>{product.price} BYN</span>
+                      <span className={styles.price}>{product.price} <BynIcon className={styles.bynIcon}/></span>
                       <span className={styles.weight}>{product.weight}</span>
                     </div>
 

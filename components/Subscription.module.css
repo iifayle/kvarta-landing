@@ -91,7 +91,7 @@
   min-height: 4rem;
   padding: 0 var(--space-l);
   border-radius: 1rem;
-  background: var(--color-text);
+  background: var(--color-accent);
   color: var(--color-bg);
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 1.125rem;

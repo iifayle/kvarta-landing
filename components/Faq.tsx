@@ -1,4 +1,5 @@
 import styles from "./Faq.module.css";
+import BynIcon from "./BynIcon";
 
 const QUESTIONS = [
   {
@@ -7,10 +8,14 @@ const QUESTIONS = [
       "Доставкой в пятницу, забрать можно в любой день после четверга",
   },
   {
-    question: "Доставка платная?",
-    answer:
-      "Если сумма покупки меньше 50, то доставка обойдется в 15 рублей",
-  },
+  question: "Доставка платная?",
+  answer: (
+    <>
+      Если сумма покупки меньше 50 <BynIcon className={styles.bynIcon} />, то доставка обойдётся в 15{" "}
+      <BynIcon className={styles.bynIcon} />
+    </>
+  ),
+},
   {
     question: "Зерно правда свежее?",
     answer:

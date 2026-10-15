@@ -92,13 +92,19 @@
   background-position: center;
   background-repeat: no-repeat;
 }
-
+.bynIcon {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  fill: currentColor;
+  vertical-align: baseline;
+}
 /* лёгкое сплошное затемнение, чтобы светлый текст читался */
 .photo::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgb(37 57 41 / 0.3);
+  background: rgb(37 57 41 / 0.55);
 }
 
 /* ---------- Текст поверх фото ---------- */

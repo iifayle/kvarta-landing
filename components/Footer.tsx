@@ -1,4 +1,5 @@
 import styles from "./Footer.module.css";
+import BynIcon from "./BynIcon";
 
 export default function Footer() {
   return (
@@ -23,7 +24,7 @@ export default function Footer() {
               </div>
             </dl>
             <p className={styles.delivery}>
-              Доставка по Минску - по пятницам, от 50 BYN бесплатно.
+              Доставка по Минску - по пятницам, от 50 <BynIcon className={styles.bynIcon}/> бесплатно.
             </p>
           </address>
 

@@ -3,11 +3,17 @@
   --footer-muted: color-mix(in srgb, var(--color-bg) 75%, var(--color-text));
   --footer-line: color-mix(in srgb, var(--color-bg) 25%, var(--color-text));
 
-  background: var(--color-text);
+  background: #3b271a;
   color: var(--color-bg);
   padding: var(--space-2xl) 0 var(--space-l);
 }
-
+.bynIcon {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  fill: currentColor;
+  vertical-align: baseline;
+}
 .inner {
   max-width: 72rem;
   margin: 0 auto;
@@ -85,12 +91,17 @@
   text-decoration: none;
   transition:
     background-color 0.15s ease,
-    color 0.15s ease;
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.link:active {
+  transform: scale(0.97);
 }
 
 .link:hover {
   background: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-bg);
 }
 
 .link:focus-visible {
@@ -103,7 +114,6 @@
 .note {
   margin: var(--space-xl) 0 0;
   padding-top: var(--space-m);
-  border-top: 1px solid var(--footer-line);
   color: var(--footer-muted);
   font-size: 0.875rem;
   line-height: 1.4;

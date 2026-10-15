@@ -35,7 +35,13 @@
   padding-top: var(--space-xl);
   border-top: 1px solid var(--color-surface);
 }
-
+.bynIcon {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  fill: currentColor;
+  vertical-align: baseline;
+}
 .subtitle {
   margin: 0 0 var(--space-m);
   color: var(--color-accent);
