@@ -82,7 +82,19 @@
   outline: 2px solid transparent;
   border-color: var(--color-accent);
 }
+/* поле с неверным номером */
+.control[aria-invalid="true"] {
+  border-color: var(--color-accent);
+}
 
+/* подсказка под полем телефона */
+.hint {
+  margin: var(--space-xs) 0 0;
+  padding: 0 var(--space-l);
+  color: var(--color-accent);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
 .textarea {
   min-height: 8rem;
   resize: vertical;
