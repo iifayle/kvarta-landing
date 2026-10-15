@@ -77,6 +77,7 @@
   font-size: 1rem;
   line-height: 1.3;
   border: 0;
+  border-radius: 1rem; /* ← добавить */
   transition: background-color 0.15s ease, transform 0.1s ease;
 }
 .order:active {
@@ -273,6 +274,7 @@
   min-height: 3.25rem;
   padding: var(--space-xs) var(--space-m);
   border: 1px solid var(--color-bg);
+  border-radius: 1rem; /* ← добавить */
   background: rgb(37 57 41 / 0.35);
   color: var(--color-bg);
   font-size: 1.0625rem;
