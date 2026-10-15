@@ -232,7 +232,89 @@
   white-space: nowrap;
   border: 0;
 }
+/* ---------- Отправка: заблокированные поля ---------- */
 
+.control:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.radio:disabled + .choiceText {
+  border-color: transparent;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.radio:checked:disabled + .choiceText {
+  border-color: var(--color-accent);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* ---------- Ошибка отправки ---------- */
+
+.error {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-accent);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ---------- Успех ---------- */
+
+.success {
+  padding: var(--space-l);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+/* фокус ставится программно, рамка вокруг блока не нужна */
+.success:focus {
+  outline: none;
+}
+
+.successText {
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-size: 1.375rem;
+  line-height: 1.3;
+}
+
+.again {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3.5rem;
+  margin-top: var(--space-l);
+  padding: 0 var(--space-l);
+  border: 1.5px solid var(--color-text);
+  border-radius: var(--radius-field);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.again:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.again:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
 /* ---------- Десктоп: две колонки ---------- */
 
 @media (min-width: 56rem) {
