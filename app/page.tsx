@@ -6,6 +6,7 @@ import Subscription from '@/components/Subscription';
 import Delivery from '@/components/Delivery';
 import LeadForm from '@/components/LeadForm';
 import Team from '@/components/Team';
+import Faq from '@/components/Faq';
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <Delivery/>
       <LeadForm/>
       <Team />
+      <Faq />
     </main>
   )
 }
