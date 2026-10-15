@@ -1,0 +1,75 @@
+.team {
+  /* чтобы липкая шапка не закрывала заголовок при переходе по якорю */
+  scroll-margin-top: 4.5rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: var(--space-2xl) 0;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-l);
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--space-l);
+}
+
+/* ---------- Текст ---------- */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.title {
+  margin-bottom: var(--space-m);
+  font-family: var(--font-heading), serif;
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.text {
+  max-width: 34rem;
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+.text + .text {
+  margin-top: var(--space-m);
+}
+
+/* ---------- Фото ---------- */
+
+.photo {
+  /* на мобильном фото сверху, дальше идёт текст */
+  order: -1;
+  aspect-ratio: 4 / 3;
+  border-radius: 1.5rem;
+  /* запасной тон, пока файла нет или он грузится */
+  background-color: color-mix(in srgb, var(--color-text) 14%, var(--color-surface));
+  background-image: url("/images/team.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* ---------- Десктоп: две колонки ---------- */
+
+@media (min-width: 56rem) {
+  .inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xl);
+    align-items: stretch;
+  }
+
+  .photo {
+    order: 0;
+    aspect-ratio: auto;
+    min-height: 26rem;
+  }
+}
