@@ -4,6 +4,7 @@ import Week from '@/components/Week';
 import Catalog from '@/components/Catalog';
 import Subscription from '@/components/Subscription';
 import Delivery from '@/components/Delivery';
+import LeadForm from '@/components/LeadForm';
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <Catalog/>
       <Subscription/>
       <Delivery/>
+      <LeadForm/>
     </main>
   )
 }
