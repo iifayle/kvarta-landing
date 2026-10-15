@@ -2,16 +2,16 @@ import styles from "./Week.module.css";
 
 const DAYS = [
   {
-    day: "Четверг.",
-    text: "Обжариваем около 5 кг на барабанном ростере. Это одна партия, не бесконечный запас.",
+    day: "Четверг",
+    text: "Обжариваем около 5 кг на барабанном ростере",
   },
   {
-    day: "Пятница.",
-    text: "Развозим заказы по Минску.",
+    day: "Пятница",
+    text: "Развозим заказы по Минску",
   },
   {
-    day: "В любой день.",
-    text: "Самовывоз на Короля, 9 — в часы мастерской.",
+    day: "В любой день",
+    text: "Навестите нашу мастерскую и заберите свое свежайшее зерно",
   },
 ] as const;
 
@@ -20,7 +20,7 @@ export default function Week() {
     <section className={styles.week} aria-labelledby="week-title">
       <div className={styles.inner}>
         <h2 id="week-title" className={styles.title}>
-          Как устроена неделя
+          Как мы работаем
         </h2>
 
         <ol className={styles.days}>

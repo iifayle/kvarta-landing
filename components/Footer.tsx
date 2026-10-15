@@ -7,7 +7,6 @@ export default function Footer() {
         <div className={styles.top}>
           <div className={styles.brand}>
             <p className={styles.logo}>Кварта</p>
-            <p className={styles.tagline}>Минская обжарка. С 2019.</p>
           </div>
 
           <address className={styles.contacts}>

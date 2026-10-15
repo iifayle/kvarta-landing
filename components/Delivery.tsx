@@ -1,8 +1,8 @@
 import styles from "./Delivery.module.css";
 
 const HOURS = [
-  { days: "Пн–пт", time: "8:00–20:00" },
-  { days: "Сб–вс", time: "10:00–18:00" },
+  { days: "Пн–пт", time: "8:00-20:00" },
+  { days: "Сб–вс", time: "10:00-18:00" },
 ] as const;
 
 export default function Delivery() {
@@ -14,17 +14,15 @@ export default function Delivery() {
     >
       <div className={styles.inner}>
         <h2 id="delivery-title" className={styles.title}>
-          Как получить заказ
+          Доставка и самовывоз
         </h2>
 
         <div className={styles.columns}>
           <div className={styles.column}>
             <h3 className={styles.subtitle}>Доставка по Минску</h3>
-            <p className={styles.big}>По пятницам.</p>
-            <p className={styles.big}>От 50 BYN — бесплатно.</p>
+            <p className={styles.big}>Пятница</p>
             <p className={styles.small}>
-              Если заказ меньше 50 BYN — скажем стоимость доставки по телефону,
-              без сюрпризов в заявке.
+              Бесплатная доставка от 50 рублей, иначе 15 руб.
             </p>
           </div>
 

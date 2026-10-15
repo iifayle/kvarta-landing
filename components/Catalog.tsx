@@ -54,7 +54,6 @@ export default function Catalog() {
   }
 
   function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
-    // мышью карусель не «таскаем» — для неё есть стрелки и клик
     if (event.pointerType === "mouse") return;
     swipeStart.current = { x: event.clientX, y: event.clientY };
     didSwipe.current = false;
@@ -75,7 +74,6 @@ export default function Catalog() {
   }
 
   function handleSelect(index: number) {
-    // после свайпа браузер может прислать «клик» — не даём ему перебить свайп
     if (didSwipe.current) {
       didSwipe.current = false;
       return;
@@ -96,8 +94,7 @@ export default function Catalog() {
             Наше зерно
           </h2>
           <p className={styles.intro}>
-            Три лота по 250 г и дрипы, если варить некогда. Напишите в заявке,
-            что нужно — остальное на звонке.
+            Выберите свое начало дня
           </p>
         </div>
 

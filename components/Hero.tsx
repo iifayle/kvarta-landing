@@ -17,12 +17,11 @@ export default function Hero() {
 
       <div className={styles.inner}>
         <div className={styles.content}>
-          <p className={styles.eyebrow}>Мастерская на Короля, 9</p>
           <h1 id="hero-title" className={styles.title}>
-            Обжариваем по четвергам. Зерно у вас на 1–3 день.
+            Кофе, что станет прекрасным началом дня
           </h1>
           <p className={styles.text}>
-            Партия — 5 кг, не склад на месяцы. По пятницам развозим по Минску.
+            свежая обжарка в вашему столу
           </p>
         </div>
       </div>

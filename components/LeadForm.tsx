@@ -26,7 +26,7 @@ export default function LeadForm() {
         <div className={styles.content}>
           <div className={styles.head}>
             <h2 id="lead-title" className={styles.title}>
-              Оставьте заявку — перезвоним
+              Заполните заявку, что бы мы с вами связались
             </h2>
           </div>
 
@@ -36,7 +36,7 @@ export default function LeadForm() {
               name="name"
               type="text"
               autoComplete="name"
-              placeholder="Как к вам обращаться"
+              placeholder="Ваше имя"
               aria-label="Имя"
               required
             />
@@ -47,7 +47,7 @@ export default function LeadForm() {
               type="tel"
               inputMode="tel"
               autoComplete="tel"
-              placeholder="+375 29 123-45-67"
+              placeholder="+375 (__) ___-__-__"
               aria-label="Телефон (белорусский номер)"
               required
             />
@@ -72,7 +72,7 @@ export default function LeadForm() {
               className={`${styles.control} ${styles.textarea}`}
               name="comment"
               rows={4}
-              placeholder="Лот, адрес, самовывоз — что важно"
+              placeholder="Все, что вас интересует"
               aria-label="Комментарий (необязательно)"
             />
 
@@ -81,7 +81,7 @@ export default function LeadForm() {
             </button>
 
             <p className={styles.note}>
-              Смотрим заявки в рабочие часы и перезваниваем.
+              Смотрим заявки в рабочие часы и перезваниваем
             </p>
           </form>
         </div>
