@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Week from '@/components/Week';
 import Catalog from '@/components/Catalog';
+import Subscription from '@/components/Subscription';
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <Week />
       <Catalog/>
+      <Subscription/>
     </main>
   )
 }
