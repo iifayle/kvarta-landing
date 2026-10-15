@@ -18,12 +18,12 @@ export default function Footer() {
               <div className={styles.row}>
                 <dt className={styles.term}>Часы</dt>
                 <dd className={styles.desc}>
-                  Пн–пт: 8:00–20:00. Сб–вс: 10:00–18:00.
+                  Пн-пт: 8:00–20:00. Сб-вс: 10:00-18:00.
                 </dd>
               </div>
             </dl>
             <p className={styles.delivery}>
-              Доставка по Минску — по пятницам, от 50 BYN бесплатно.
+              Доставка по Минску - по пятницам, от 50 BYN бесплатно.
             </p>
           </address>
 
