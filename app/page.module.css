@@ -98,7 +98,7 @@ a.secondary {
   height: 100svh;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 56rem) {
   .firstScreen {
     display: none;
   }

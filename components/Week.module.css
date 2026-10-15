@@ -80,7 +80,7 @@
 
 /* ---------- Десктоп: горизонтальная шкала ---------- */
 
-@media (min-width: 48rem) {
+@media (min-width: 56rem) {
   .week {
     padding: var(--space-3xl) 0;
   }

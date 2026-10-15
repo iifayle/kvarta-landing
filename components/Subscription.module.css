@@ -144,7 +144,7 @@
 
 /* ---------- Десктоп: две колонки ---------- */
 
-@media (min-width: 48rem) {
+@media (min-width: 56rem) {
   .subscription {
     padding: var(--space-3xl) 0;
   }

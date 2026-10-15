@@ -1,151 +1,83 @@
+/* Блок виден только на десктопе; на мобильном этот текст живёт в шапке */
 .hero {
-  background: var(--color-bg);
-  color: var(--color-text);
-  padding: var(--space-2xl) 0;
+  display: none;
 }
 
-.inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-xl);
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: 0 var(--space-l);
-}
-
-/* ---------- Фото (на мобильном — первым) ---------- */
-
-.media {
-  position: relative;
-  order: -1;
-}
-
-.photo {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background-color: var(--color-surface);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* ---------- Текст ---------- */
-
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: var(--space-s);
-  margin: 0 0 var(--space-m);
-  color: var(--color-accent);
-  font-size: 0.9375rem;
-  line-height: 1.3;
-}
-
-.eyebrow::before {
-  content: "";
-  flex: none;
-  width: var(--space-xl);
-  height: 1px;
-  background: var(--color-accent);
-}
-
-.title {
-  margin: 0 0 var(--space-l);
-  font-size: clamp(2rem, 1.4rem + 3vw, 3.5rem);
-  line-height: 1.1;
-}
-
-.accent {
-  display: block;
-  color: var(--color-accent);
-}
-
-.lead {
-  max-width: 34rem;
-  margin: 0 0 var(--space-m);
-  font-size: 1.125rem;
-  line-height: 1.6;
-}
-
-.about {
-  max-width: 34rem;
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-/* ---------- Три факта ---------- */
-
-.facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-m);
-  width: 100%;
-  max-width: 34rem;
-  margin: var(--space-xl) 0 0;
-  padding: var(--space-l) 0 0;
-  border-top: 1px solid var(--color-surface);
-  list-style: none;
-}
-
-.fact {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
-}
-
-.factValue {
-  font-family: var(--font-heading), serif;
-  font-size: 1.375rem;
-  line-height: 1.15;
-  color: var(--color-accent);
-}
-
-.factLabel {
-  font-size: 0.875rem;
-  line-height: 1.35;
-}
-
-/* ---------- Десктоп: две колонки ---------- */
-
-@media (min-width: 48rem) {
+@media (min-width: 56rem) {
   .hero {
-    padding: var(--space-3xl) 0;
+    /* какая часть фото остаётся в кадре при обрезке: подстрой под свой снимок */
+    --hero-focus: 30% 50%;
+
+    position: relative;
+    display: flex;
+    min-height: calc(100svh - var(--header-h, 0px));
+    /* воздух между Hero и блоком «Неделя» */
+    margin-bottom: var(--space-3xl);
+    overflow: hidden;
+    /* тон, пока фото грузится */
+    background: var(--color-text);
+    color: var(--color-bg);
   }
 
-  .inner {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: var(--space-3xl);
-    align-items: center;
-  }
+  /* ---------- Фото и затемнение ---------- */
 
   .media {
-    order: 0;
+    position: absolute;
+    inset: 0;
   }
 
-  .photo {
-    aspect-ratio: 4 / 5;
+  .image {
+    object-fit: cover;
+    object-position: var(--hero-focus);
   }
 
-  /* тонкая рамка за фото, со смещением */
-  .media::before {
+  .media::after {
     content: "";
     position: absolute;
     inset: 0;
-    z-index: 0;
-    border: 1px solid var(--color-accent);
-    transform: translate(var(--space-m), var(--space-m));
+    background: linear-gradient(
+      to left,
+      color-mix(in srgb, var(--color-text) 65%, transparent) 0%,
+      color-mix(in srgb, var(--color-text) 60%, transparent) 45%,
+      transparent 75%
+    );
   }
 
-  .factValue {
-    font-size: 1.75rem;
+  /* ---------- Текст: справа, чашка слева ---------- */
+
+  .inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    padding: var(--space-3xl) clamp(var(--space-l), 5vw, var(--space-3xl));
+  }
+
+  .content {
+    width: 100%;
+    max-width: 32rem;
+    text-align: left;
+  }
+
+  .eyebrow {
+    margin: 0 0 var(--space-s);
+    color: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    font-size: 0.9375rem;
+    line-height: 1.3;
+  }
+
+  .title {
+    margin: 0;
+    font-family: var(--font-heading), serif;
+    font-size: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .text {
+    margin: var(--space-m) 0 0;
+    font-size: 1.125rem;
+    line-height: 1.6;
   }
 }
