@@ -2,50 +2,38 @@ import styles from "./Faq.module.css";
 
 const QUESTIONS = [
   {
-    question: "Если написать сегодня - когда зерно будет у меня?",
+    question: "Когда зерно будет у меня?",
     answer:
-      "Жарим по четвергам, по Минску везём по пятницам. Забрать можно самим на Короля, 9 - в часы мастерской.",
+      "Доставкой в пятницу, забрать можно в любой день после четверга",
   },
   {
     question: "Доставка платная?",
     answer:
-      "По пятницам по Минску. От 50 BYN - бесплатно. В подписке доставка уже входит.",
-  },
-  {
-    question: "Что в подписке и можно ли выбрать зерно?",
-    answer:
-      "54 BYN в месяц, две пачки по 250 г, доставка бесплатно. Какие лоты - напишите в заявке, на звонке подтвердим.",
-  },
-  {
-    question: "Можно не ждать пятницу и забрать самим?",
-    answer: "Да. Короля, 9: пн-пт 8:00-20:00, сб-вс 10:00-18:00.",
+      "Если сумма покупки меньше 50, то доставка обойдется в 15 рублей",
   },
   {
     question: "Зерно правда свежее?",
     answer:
-      "У вас оно на 1-3 день после обжарки. Партия 5 кг в четверг, к пятнице уже разъезжается. В магазине тот же пакет может лежать месяцами.",
+      "Мы заботимся о свежести зерна. Оно жарится небольшими партиями по 5 кг. Нам важен ваши ощущения от свежего утреннего кофе",
   },
-];
+] as const;
 
 export default function Faq() {
   return (
-    <section id="faq" className={styles.faq} aria-labelledby="faq-title">
+    <section id="voprosy" className={styles.faq} aria-labelledby="faq-title">
       <div className={styles.inner}>
         <h2 id="faq-title" className={styles.title}>
-          Ваши вопросы и наши ответы
+          Частые вопросы
         </h2>
 
-        <div className={styles.list}>
+        <ul className={styles.cards} role="list">
           {QUESTIONS.map((item) => (
-            <details key={item.question} className={styles.item}>
-              <summary className={styles.summary}>
-                <span className={styles.question}>{item.question}</span>
-                <span className={styles.icon} aria-hidden="true" />
-              </summary>
+            <li key={item.question} className={styles.card}>
+              <h3 className={styles.question}>{item.question}</h3>
               <p className={styles.answer}>{item.answer}</p>
-            </details>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
