@@ -1,0 +1,124 @@
+.delivery {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--space-2xl) 0;
+}
+
+.inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--space-l);
+}
+
+.title {
+  margin-bottom: var(--space-xl);
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  line-height: 1.15;
+  text-align: center;
+}
+
+/* ---------- Две части ---------- */
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+}
+
+.column {
+  min-width: 0;
+  text-align: center;
+}
+
+/* на мобильном вторая часть отделена линией сверху */
+.column + .column {
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-surface);
+}
+
+.subtitle {
+  margin: 0 0 var(--space-m);
+  color: var(--color-accent);
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.big {
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  line-height: 1.2;
+}
+
+.big + .big {
+  margin-top: var(--space-2xs);
+}
+
+.small {
+  max-width: 28rem;
+  margin: var(--space-m) auto 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.address {
+  font-style: normal;
+}
+
+/* ---------- Часы работы ---------- */
+
+.hours {
+  max-width: 22rem;
+  margin: var(--space-l) auto 0;
+  padding: 0;
+  border-top: 1px solid var(--color-surface);
+  text-align: left;
+}
+
+.hoursRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-m);
+  padding: var(--space-s) 0;
+  border-bottom: 1px solid var(--color-surface);
+}
+
+.hoursDays {
+  font-size: 1.0625rem;
+}
+
+.hoursTime {
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+/* ---------- Десктоп ---------- */
+
+@media (min-width: 48rem) {
+  .delivery {
+    padding: var(--space-3xl) 0;
+  }
+
+  .title {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  /* отступы зеркальны относительно разделяющей линии */
+  .column {
+    padding: 0 var(--space-2xl) 0 0;
+  }
+
+  .column + .column {
+    padding: 0 0 0 var(--space-2xl);
+    border-top: 0;
+    border-left: 1px solid var(--color-surface);
+  }
+}

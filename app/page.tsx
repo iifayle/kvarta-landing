@@ -3,6 +3,7 @@ import Hero from '@/components/Hero'
 import Week from '@/components/Week';
 import Catalog from '@/components/Catalog';
 import Subscription from '@/components/Subscription';
+import Delivery from '@/components/Delivery';
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <Week />
       <Catalog/>
       <Subscription/>
+      <Delivery/>
     </main>
   )
 }
