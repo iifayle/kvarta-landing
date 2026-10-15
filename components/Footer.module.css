@@ -1,0 +1,124 @@
+.footer {
+  /* мелкий текст: светлый, но чуть приглушённый (контраст остаётся высоким) */
+  --footer-muted: color-mix(in srgb, var(--color-bg) 75%, var(--color-text));
+  --footer-line: color-mix(in srgb, var(--color-bg) 25%, var(--color-text));
+
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: var(--space-2xl) 0 var(--space-l);
+}
+
+.inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--space-l);
+}
+
+/* ---------- Верхняя часть ---------- */
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+}
+
+/* ---------- Логотип ---------- */
+
+.logo {
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-size: clamp(2.5rem, 2rem + 2.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.tagline {
+  margin: var(--space-s) 0 0;
+  color: var(--footer-muted);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* ---------- Контакты ---------- */
+
+.contacts {
+  font-style: normal;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.list {
+  display: grid;
+  gap: var(--space-m);
+  margin: 0;
+}
+
+.term {
+  margin-bottom: var(--space-2xs);
+  color: var(--footer-muted);
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+
+.desc {
+  margin: 0;
+}
+
+.delivery {
+  margin: var(--space-m) 0 0;
+}
+
+/* ---------- Ссылка «Оставить заявку» ---------- */
+/* Контурная кнопка: заметная, но тише, чем тёмная кнопка в форме */
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+  padding: 0 var(--space-xl);
+  border: 1.5px solid var(--color-bg);
+  border-radius: 1rem;
+  color: var(--color-bg);
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.link:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-bg);
+  outline-offset: 3px;
+}
+
+/* ---------- Нижняя строка ---------- */
+
+.note {
+  margin: var(--space-xl) 0 0;
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--footer-line);
+  color: var(--footer-muted);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* ---------- Десктоп: три колонки ---------- */
+
+@media (min-width: 56rem) {
+  .top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .link {
+    display: inline-flex;
+  }
+}

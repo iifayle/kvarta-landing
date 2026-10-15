@@ -7,6 +7,7 @@ import Delivery from '@/components/Delivery';
 import LeadForm from '@/components/LeadForm';
 import Team from '@/components/Team';
 import Faq from '@/components/Faq';
+import Footer from '@/components/Footer';
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
       <LeadForm/>
       <Team />
       <Faq />
+      <Footer />
     </main>
   )
 }
