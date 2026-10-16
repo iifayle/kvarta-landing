@@ -125,7 +125,7 @@ export default function Catalog() {
           >
             <ul
               className={styles.track}
-              style={{ "--index": active } as CSSProperties}
+              style={{ "--index": active, "--count": count } as CSSProperties}
             >
               {PRODUCTS.map((product, index) => {
                 const isActive = index === active;
