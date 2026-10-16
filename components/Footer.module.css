@@ -101,7 +101,7 @@
 
 .link:hover {
   background: var(--color-bg);
-  color: var(--color-bg);
+  color: #3b271a;
 }
 
 .link:focus-visible {
