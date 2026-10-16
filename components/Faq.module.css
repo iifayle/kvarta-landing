@@ -81,3 +81,15 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+@media (min-width: 40rem) {
+  .card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 64rem) {
+  .card:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
