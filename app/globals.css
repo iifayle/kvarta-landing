@@ -1,7 +1,7 @@
 :root {
   --color-bg: #faf9f2;
   --color-surface: #d4c4a8;
-  --color-text: #253929;
+  --color-text: #3b271a;
   --color-accent: #774d31;
   --color-text-muted: rgb(37 57 41 / 0.6);
 
@@ -42,6 +42,10 @@ h6 {
   margin: 0;
   font-family: var(--font-heading), serif;
   font-weight: 400;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 @media (min-width: 56rem) {

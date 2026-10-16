@@ -33,7 +33,7 @@
 }
 
 .text {
-  max-width: 34rem;
+  max-width: 100%;
   margin: 0;
   font-size: 1.125rem;
   line-height: 1.65;
@@ -65,6 +65,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-xl);
     align-items: stretch;
+  }
+
+  .text {
+    max-width: none; 
   }
 
   .photo {

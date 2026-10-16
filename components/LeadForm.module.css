@@ -90,9 +90,8 @@
 /* подсказка под полем телефона */
 .hint {
   margin: var(--space-xs) 0 0;
-  padding: 0 var(--space-l);
-  color: var(--color-accent);
-  font-size: 0.875rem;
+  color: #603025;
+  font-size: 1rem;
   line-height: 1.4;
 }
 .textarea {
@@ -156,9 +155,10 @@
 }
 
 .radio:checked + .choiceText {
-  background: var(--color-accent);
+  background: var(--color-bg);
   border-color: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-text);
+  border-color: var(--color-accent);
 }
 
 .radio:focus-visible + .choiceText {
