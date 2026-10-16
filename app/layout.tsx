@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Tenor_Sans } from "next/font/google";
 import "./globals.css";
+import UtmCapture from "../components/UtmCapture";
 
 const tenorSans = Tenor_Sans({
   weight: "400",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${tenorSans.variable} ${inter.variable}`}
     >
       <body>
+        <UtmCapture />
         {children}
       </body>
     </html>

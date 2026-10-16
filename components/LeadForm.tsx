@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { getStoredUtm } from "../utils/utm";
 import {
   useEffect,
   useId,
@@ -30,6 +31,7 @@ interface LeadPayload {
   phone: string;
   topic: string;
   comment: string;
+  utm: Record<string, string>;
 }
 
 const SEND_ERROR_TEXT =
@@ -106,6 +108,7 @@ export default function LeadForm() {
       phone: normalizedPhone,
       topic: String(formData.get("topic") ?? ""),
       comment: String(formData.get("comment") ?? "").trim(),
+      utm: getStoredUtm(),
     };
 
     sendingRef.current = true;
