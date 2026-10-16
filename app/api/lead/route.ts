@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { normalizeBelarusPhone } from "@/utils/phone";
+import { Ratelimit } from "@upstash/ratelimit";
 
 const TOPICS = ["subscription", "order", "question"] as const;
 type Topic = (typeof TOPICS)[number];
@@ -24,6 +25,11 @@ interface Lead {
   utm: Record<string, string>;
   createdAt: string;
 }
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(10, "1 m"), // 10 запросов в минуту с одного IP
+});
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -54,6 +60,13 @@ function jsonError(error: string, status: number) {
 }
 
 export async function POST(request: Request) {
+
+  const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+  const { success } = await ratelimit.limit(ip);
+  if (!success) {
+    return NextResponse.json({ error: "too_many_requests" }, { status: 429 });
+  }
+
   let body: unknown;
   try {
     body = await request.json();
@@ -61,6 +74,10 @@ export async function POST(request: Request) {
     return jsonError("invalid_json", 400);
   }
   if (!isRecord(body)) return jsonError("invalid_json", 400);
+
+    if (body.YamilYamal) {
+      return NextResponse.json({ ok: true });
+    }
 
   const name = cleanText(body.name);
   if (name.length < 1 || name.length > NAME_MAX) {

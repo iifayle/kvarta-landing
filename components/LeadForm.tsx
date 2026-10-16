@@ -175,6 +175,14 @@ export default function LeadForm() {
               onSubmit={handleSubmit}
               aria-busy={isSending}
             >
+              <div style={{ display: "none" }} aria-hidden="true">
+                <input
+                  type="text"
+                  name="YamilYamal"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
               <input
                 className={styles.control}
                 name="name"
