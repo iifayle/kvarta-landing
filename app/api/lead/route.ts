@@ -59,6 +59,53 @@ function jsonError(error: string, status: number) {
   return NextResponse.json({ error }, { status });
 }
 
+const TOPIC_LABELS: Record<Topic, string> = {
+  subscription: "Подписка",
+  order: "Разовый заказ",
+  question: "Вопрос",
+};
+
+// Дублирует заявку в Telegram. Не бросает исключений: если что-то не так, только лог.
+async function sendToTelegram(lead: Lead): Promise<void> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+
+  const lines = [
+    "Новая заявка",
+    `Имя: ${lead.name}`,
+    `Телефон: ${lead.phone}`,
+    `Интересует: ${TOPIC_LABELS[lead.topic]}`,
+  ];
+  if (lead.comment) lines.push(`Комментарий: ${lead.comment}`);
+  if (lead.utm.utm_source) lines.push(`Источник: ${lead.utm.utm_source}`);
+
+  try {
+    const response = await fetch(
+      new Request(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: lines.join("\n"),
+          link_preview_options: { is_disabled: true },
+        }),
+        // Telegram не должен надолго задерживать ответ клиенту
+        signal: AbortSignal.timeout(5000),
+      }),
+    );
+
+    if (!response.ok) {
+      console.error("[telegram] bad response", response.status, await response.text());
+    }
+  } catch (error) {
+    console.error(
+      "[telegram] send failed",
+      error instanceof Error ? error.message : error,
+    );
+  }
+}
+
 export async function POST(request: Request) {
 
   const ip = request.headers.get("x-forwarded-for") ?? "unknown";
@@ -120,6 +167,7 @@ export async function POST(request: Request) {
     }
 
     console.log("[lead]", JSON.stringify(lead));
+    await sendToTelegram(lead);   // ← добавить
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("[lead] error", error);
