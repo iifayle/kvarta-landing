@@ -1,7 +1,7 @@
 .delivery {
   background: var(--color-bg);
   color: var(--color-text);
-  padding: var(--space-2xl) 0;
+  padding: var(--section-pad) 0;
 }
 
 .inner {
@@ -104,9 +104,6 @@
 /* ---------- Десктоп ---------- */
 
 @media (min-width: 48rem) {
-  .delivery {
-    padding: var(--space-3xl) 0;
-  }
 
   .title {
     margin-bottom: var(--space-2xl);

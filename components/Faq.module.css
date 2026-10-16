@@ -3,7 +3,7 @@
   scroll-margin-top: 4.5rem;
   background: var(--color-bg);
   color: var(--color-text);
-  padding: var(--space-2xl) 0;
+  padding: var(--section-pad) 0;
 }
 .bynIcon {
   display: inline-block;
@@ -72,9 +72,6 @@
 /* ---------- Десктоп: 3 колонки ---------- */
 
 @media (min-width: 64rem) {
-  .faq {
-    padding: var(--space-3xl) 0;
-  }
 
   .title {
     margin-bottom: var(--space-2xl);

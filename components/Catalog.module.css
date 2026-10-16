@@ -1,7 +1,7 @@
 .catalog {
   background: var(--color-bg);
   color: var(--color-text);
-  padding: var(--space-2xl) 0;
+  padding: var(--section-pad) 0;
 }
 
 .inner {

@@ -1,7 +1,7 @@
 .subscription {
   background: var(--color-bg);
   color: var(--color-text);
-  padding: var(--space-2xl) 0;
+  padding: var(--section-pad) 0;
 }
 
 .inner {
@@ -133,9 +133,6 @@
 /* ---------- Десктоп: 4 колонки ---------- */
 
 @media (min-width: 64rem) {
-  .subscription {
-    padding: var(--space-3xl) 0;
-  }
 
   .head {
     margin-bottom: var(--space-2xl);
