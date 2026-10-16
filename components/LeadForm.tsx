@@ -37,7 +37,6 @@ interface LeadPayload {
 const SEND_ERROR_TEXT =
   "Не отправилось. Проверьте связь и попробуйте ещё раз через минуту.";
 
-// Если сервер молчит дольше, считаем отправку неудачной, а не держим форму заблокированной
 const REQUEST_TIMEOUT_MS = 15000;
 
 export default function LeadForm() {
@@ -47,47 +46,49 @@ export default function LeadForm() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const phoneHintId = useId();
+  const modalTitleId = useId();
   const phoneRef = useRef<HTMLInputElement>(null);
-  const successRef = useRef<HTMLDivElement>(null);
-  // setState асинхронный: два быстрых submit подряд оба увидят status "idle".
-  // Ref меняется сразу, поэтому он закрывает этот зазор.
+  const formRef = useRef<HTMLFormElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const sendingRef = useRef(false);
 
   const isSending = status === "sending";
 
-  // После успеха переводим фокус на сообщение, чтобы его услышали скринридеры
+  // Открываем модалку после успешной отправки, блокируем скролл body
   useEffect(() => {
-    if (status === "success") successRef.current?.focus();
+    if (status !== "success") return;
+
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) dialog.showModal();
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
   }, [status]);
 
+  function closeModal() {
+    dialogRef.current?.close();
+  }
+
   function handlePhoneFocus() {
-    // +375 стоит в поле всегда, пользователь вводит только остальные цифры
     if (phone === "") setPhone(PHONE_PREFIX);
   }
 
   function handlePhoneChange(event: ChangeEvent<HTMLInputElement>) {
     const next = formatPhoneInput(event.target.value, phone);
     setPhone(next);
-    // как только номер стал верным, подсказка пропадает сразу, не дожидаясь blur
     if (phoneError && isValidBelarusPhone(next)) setPhoneError(false);
   }
 
   function handlePhoneBlur() {
-    // ничего не ввели: возвращаем placeholder, подсказку не показываем
     if (phone === "" || phone === PHONE_PREFIX) {
       setPhone("");
       setPhoneError(false);
       return;
     }
     setPhoneError(!isValidBelarusPhone(phone));
-  }
-
-  function handleReset() {
-    setStatus("idle");
-    setErrorMessage("");
-    setPhone("");
-    setPhoneError(false);
-    // имя и комментарий очищаются сами: при возврате к idle форма монтируется заново
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -101,7 +102,6 @@ export default function LeadForm() {
       return;
     }
 
-    // читаем поля до await: после него event.currentTarget уже пустой
     const formData = new FormData(event.currentTarget);
     const payload: LeadPayload = {
       name: String(formData.get("name") ?? "").trim(),
@@ -131,6 +131,7 @@ export default function LeadForm() {
       setStatus("success");
       setPhone("");
       setPhoneError(false);
+      formRef.current?.reset();
     } catch {
       setStatus("error");
       setErrorMessage(SEND_ERROR_TEXT);
@@ -154,122 +155,104 @@ export default function LeadForm() {
             </h2>
           </div>
 
-          {status === "success" ? (
-            <div
-              ref={successRef}
-              className={styles.success}
-              role="status"
-              tabIndex={-1}
-            >
-              <p className={styles.successText}>
-                Заявка ушла. Перезвоним в рабочие часы мастерской.
-              </p>
-              <button
-                className={styles.again}
-                type="button"
-                onClick={handleReset}
-              >
-                Отправить ещё одну заявку
-              </button>
-            </div>
-          ) : (
-            <form
-              className={styles.form}
-              onSubmit={handleSubmit}
-              aria-busy={isSending}
-            >
-              <div style={{ display: "none" }} aria-hidden="true">
-                <input
-                  type="text"
-                  name="YamilYamal"
-                  tabIndex={-1}
-                  autoComplete="off"
-                />
-              </div>
+          <form
+            ref={formRef}
+            className={styles.form}
+            onSubmit={handleSubmit}
+            aria-busy={isSending}
+          >
+            <div style={{ display: "none" }} aria-hidden="true">
               <input
-                className={styles.control}
-                name="name"
                 type="text"
-                autoComplete="name"
-                placeholder="Ваше имя"
-                aria-label="Имя"
+                name="YamilYamal"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
+            <input
+              className={styles.control}
+              name="name"
+              type="text"
+              autoComplete="name"
+              placeholder="Ваше имя"
+              aria-label="Имя"
+              disabled={isSending}
+              required
+            />
+
+            <div>
+              <input
+                ref={phoneRef}
+                className={styles.control}
+                name="phone"
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel"
+                placeholder="+375 (__) ___-__-__"
+                aria-label="Телефон (белорусский номер)"
+                aria-invalid={phoneError}
+                aria-describedby={phoneError ? phoneHintId : undefined}
+                value={phone}
+                onChange={handlePhoneChange}
+                onFocus={handlePhoneFocus}
+                onBlur={handlePhoneBlur}
                 disabled={isSending}
                 required
               />
-
-              <div>
-                <input
-                  ref={phoneRef}
-                  className={styles.control}
-                  name="phone"
-                  type="tel"
-                  inputMode="numeric"
-                  autoComplete="tel"
-                  placeholder="+375 (__) ___-__-__"
-                  aria-label="Телефон (белорусский номер)"
-                  aria-invalid={phoneError}
-                  aria-describedby={phoneError ? phoneHintId : undefined}
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  onFocus={handlePhoneFocus}
-                  onBlur={handlePhoneBlur}
-                  disabled={isSending}
-                  required
-                />
-                <div aria-live="polite">
-                  {phoneError ? (
-                    <p className={styles.hint} id={phoneHintId}>
-                      Нужен белорусский номер, например +375 29 123-45-67
-                    </p>
-                  ) : null}
-                </div>
+              <div aria-live="polite">
+                {phoneError ? (
+                  <p className={styles.hint} id={phoneHintId}>
+                    Нужен белорусский номер, например +375 29 123-45-67
+                  </p>
+                ) : null}
               </div>
+            </div>
 
-              <fieldset className={styles.topics}>
-                <legend className={styles.srOnly}>Что интересует</legend>
-                {TOPICS.map((item, index) => (
-                  <label key={item.value} className={styles.choice}>
-                    <input
-                      className={styles.radio}
-                      type="radio"
-                      name="topic"
-                      value={item.value}
-                      defaultChecked={index === 0}
-                      disabled={isSending}
-                    />
-                    <span className={styles.choiceText}>{item.label}</span>
-                  </label>
-                ))}
-              </fieldset>
+            <fieldset className={styles.topics}>
+              <legend className={styles.srOnly}>Что интересует</legend>
+              {TOPICS.map((item, index) => (
+                <label key={item.value} className={styles.choice}>
+                  <input
+                    className={styles.radio}
+                    type="radio"
+                    name="topic"
+                    value={item.value}
+                    defaultChecked={index === 0}
+                    disabled={isSending}
+                  />
+                  <span className={styles.choiceText}>{item.label}</span>
+                </label>
+              ))}
+            </fieldset>
 
-              <textarea
-                className={`${styles.control} ${styles.textarea}`}
-                name="comment"
-                rows={4}
-                placeholder="Все, что вас интересует"
-                aria-label="Комментарий (необязательно)"
-                disabled={isSending}
-              />
+            <textarea
+              className={`${styles.control} ${styles.textarea}`}
+              name="comment"
+              rows={4}
+              placeholder="Все, что вас интересует"
+              aria-label="Комментарий (необязательно)"
+              disabled={isSending}
+            />
 
-              <button
-                className={styles.button}
-                type="submit"
-                disabled={isSending}
-              >
-                {isSending ? "Отправляем..." : "Отправить заявку"}
-              </button>
+            <button
+              className={styles.button}
+              type="submit"
+              disabled={isSending}
+            >
+              {isSending ? "Отправляем..." : "Отправить заявку"}
+            </button>
 
-              {status === "error" ? (
-                <p className={styles.error} role="alert">
-                  {errorMessage}
-                </p>
-              ) : null}
-
-              <p className={styles.note}>
-                Смотрим заявки в рабочие часы и перезваниваем.
+            {status === "error" ? (
+              <p className={styles.error} role="alert">
+                {errorMessage}
               </p>
-            </form>
-          )}
+            ) : null}
+
+            <p className={styles.note}>
+              Смотрим заявки в рабочие часы и перезваниваем.
+            </p>
+          </form>
         </div>
 
         <div className={styles.media}>
@@ -282,6 +265,34 @@ export default function LeadForm() {
           />
         </div>
       </div>
+
+      <dialog
+        ref={dialogRef}
+        className={styles.modal}
+        aria-labelledby={modalTitleId}
+        onClose={() => setStatus("idle")}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeModal();
+        }}
+      >
+        <div className={styles.modalBody}>
+          <button
+            className={styles.modalClose}
+            type="button"
+            aria-label="Закрыть"
+            onClick={closeModal}
+          >
+            <span className={styles.modalCloseIcon} aria-hidden="true" />
+          </button>
+          <h3 id={modalTitleId} className={styles.modalTitle}>
+            Форма отправлена
+          </h3>
+          <div className={styles.modalPhoto} />
+          <button className={styles.modalOk} type="button" onClick={closeModal}>
+            ОК
+          </button>
+        </div>
+      </dialog>
     </section>
   );
 }
